@@ -9,3 +9,4 @@ def game(players):
         total += player
 
     return total
+

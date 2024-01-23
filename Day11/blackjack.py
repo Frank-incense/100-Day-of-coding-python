@@ -29,6 +29,8 @@ import helper
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 endOfGame = False
 
+print(logo )
+
 # Dealer deals the set of cards.
 player = []
 dealer = []
@@ -37,36 +39,37 @@ for i in range(2):
         player.append(helper.deal(cards))
         dealer.append(helper.deal(cards))
 
-def play():
+# The olayer can see one of the dealers Cards
+print(f"Your cards are {player[1]} and {player[0]} the dealer has {dealer[0]}")
 
-    while not endOfGame:
-        # The olayer can see one of the dealers Cards
-        print(f"Your cards are {player[1]} and {player[0]} the dealer has {dealer[0]}")
+# The player gets to the the count for the visible Cards
+print(f"Your total is {helper.game(player)} the dealer has {dealer[0]}")
 
-        # The player gets to the the count for the visible Cards
-        print(f"Your total is {player[0] + player[1]} the dealer has {dealer[0]}")
+while not endOfGame:
+    choice = input("Will you 'hit' or 'stand': ").lower()
+    if choice == "hit":
+        player.append(helper.deal(cards))
 
-        # The player gets the choice of hit or stand.
-        choice = input("Will you 'hit' or 'stand': ").lower()
+        print(f"Your cards are {player} and total is {helper.game(player)}")
+        print(f"Your cards are {dealer} and total is {helper.game(dealer)}")
 
-        # Hit grants the player a new card 
-        # Stand is called when the player thinks they have won
-        if choice == "hit":
-        #   player loses if card total is greaater than 21
-            if helper.game(player) > 21:
+        if helper.game(player) > 21:
+            endOfGame = True
+            print("YOU LOSE") 
+        
+    else:
+        while helper.game(dealer) < helper.game(player) and helper.game(dealer) < 21:
+            if helper.game(dealer) < 17:
+                dealer.append(cards)
+                print(f"Your cards are {player} and total is {helper.game(player)}")
+                print(f"Your cards are {dealer} and total is {helper.game(dealer)}")
+                
+            elif helper.game(player) > helper.game(dealer):
+                print("YOU WIN")
                 endOfGame = True
-                return "Bust"
-            else:
-                player.append(helper.deal(cards))
+                break
 
-        elif choice == "stand": 
-        #   DEALER GETS ANOTHER CARD IF TOTAL LESS THAN 15
-            if helper.game(dealer) < 15:
-                dealer.append(helper.deal(cards))
-                if helper.game(dealer) > 21:
-                    endOfGame = True
-                    return "Player Wins!"
-                     
-        #   Player loses if their count is less than dealers 
-        #   Dealer loses if their count is less than players
-        #    
+            elif helper.game(player) == helper.game(dealer):
+                print("YOU TIE")
+                endOfGame = True
+                break
