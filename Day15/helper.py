@@ -30,32 +30,40 @@ resources = {
     "coffee": 100,
 }
 
-# TODO: 4 Check resources are sufficient
-def check(coffee):
-    drink = MENU[coffee]["ingredients"]
-    for ing in drink:
-        if drink[ing] > resources[ing]:
-            return f"Sorry there is not enough {ing}"
-    return True
+def enough_resource(coffee):
+    '''Return a string of either the ingredient or just yes'''
+    ingredients = MENU[coffee]['ingredients']
+    for ingredient in ingredients:
+        if ingredients[ingredient] > resources[ingredient]:
+            return ingredient
+        else:
+            return 'yes'
 
-# TODO: 5 Process coins
-# penny = 0.01
-# dime = 0.1
-# quarter = 0.25
-# nickel = 0.05
-def process_coins(coffee):
+def get_coins():
+    '''Returns the total money received form the client'''
     quarter = int(input("How many quarters?: "))
-    nickel = int(input("How many nickels?: "))
     dime = int(input("How many dimes?: "))
-    penny = int(input("How many pennys?: "))
-
-    total = (quarter * 0.25) + (dime * 0.1) + (nickel * 0.05) + (penny * 0.01)
-    if total > MENU[coffee]["cost"]:
-        total = total - MENU[coffee]["cost"]
-        return total
+    nickel = int(input("How many nickels?: "))
+    penny = int(input("How many pennies?: "))
     
-    return -1
+    # machine processes the total coins
+    coins = (quarter * .25) + (dime * 0.1) + (nickel * 0.05) + (penny * 0.01)
+    return coins
 
-def transaction():
-    if "money" not in resources:
-        print(resources)
+def process(money, coffee):
+    '''Returns the amount of change owed'''
+    change = money - MENU[coffee]['cost']
+    if 'money' not in resources:
+        resources['money'] = MENU[coffee]['cost']
+    else:
+        resources['money'] += MENU[coffee]['cost']
+
+    return change
+
+def make_coffee(coffee):
+    '''Returns a string after altering the resources'''
+    for resource in resources:
+        if resource in MENU[coffee]['ingredients']:
+            resources[resource] = resources[resource] - MENU[coffee]['ingredients'][resource]
+
+    return f"Here is your {coffee}. Enjoy!"
