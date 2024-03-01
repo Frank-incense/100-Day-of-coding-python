@@ -1,0 +1,16 @@
+from turtle import *
+from random import choice
+
+toto = Turtle()
+toto.shape('turtle')
+
+colors = ['purple4', 'red4', 'RosyBrown4', 'RoyalBlue4', 'pink', 'SeaGreen4','NavajoWhite4']
+ 
+
+
+
+
+
+screen = Screen()
+screen.exitonclick()
+
