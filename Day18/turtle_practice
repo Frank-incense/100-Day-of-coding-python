@@ -1,16 +1,22 @@
-from turtle import *
-from random import choice
+import turtle as t
+from random import randint, choice
 
-toto = Turtle()
-toto.shape('turtle')
+toto = t.Turtle()
+toto.speed(0)
+t.colormode(255)
 
-colors = ['purple4', 'red4', 'RosyBrown4', 'RoyalBlue4', 'pink', 'SeaGreen4','NavajoWhite4']
- 
+def color():
+    r = randint(0, 255)
+    b = randint(0, 255)
+    g = randint(0, 255)
+    return (r,g,b)
 
+for _ in range(360//5):
+    toto.color(color())
+    toto.circle(100)
+    toto.left(5)
+    
 
-
-
-
-screen = Screen()
+screen = t.Screen()
 screen.exitonclick()
 
