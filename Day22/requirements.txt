@@ -1,0 +1,14 @@
+# What makes up the game.
+    # two players
+    # a pong
+    # scores of each player
+    # Border to the top and bottom
+    
+# Create screen
+# Create and Move paddle
+# Create another paddle
+# Create a ball and make it move
+# Detect collision wit wall and make it bounce
+#  Detect collision with paddle 
+# Detect when paddle misses. 
+# Keep score 
