@@ -27,6 +27,7 @@ class Snake:
         self.addSegment(self.body[-1].position())
 
     def makeBody(self):
+        '''Creates the segments of the snake.'''
         for position in STARTING_POSITIONS:
             self.addSegment(position)
             
@@ -63,6 +64,13 @@ class Snake:
         elif y >= 280 or y <= -280:
             return True
         
-
+    def reset(self):
+        for seg in self.body:
+            seg.goto((1000,1000))
+        
+        self.body.clear()
+        self.makeBody()
+        self.head = self.body[0]
+        
 
     

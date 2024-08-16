@@ -11,7 +11,7 @@ class Scoreboard(Turtle):
         self.goto(POSITION)
         self.color('black')
         self.score = 0
-        self.write(arg=f"Level: {self.score}",font=FONT, align='left')
+        self.updateScore()
         
     def updateScore(self):
         self.score += 1
