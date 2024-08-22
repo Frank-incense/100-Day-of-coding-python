@@ -12,13 +12,39 @@ states.ht()
 
 data = pandas.read_csv('./Day25/us-states-game/50_states.csv')
 gameIsOn = True
+stateCount = 0
+answered = []
 
 while gameIsOn:
-    userResponse = screen.textinput('US States Game', 'Name a US State:').title()
+    userResponse = screen.textinput(f'{stateCount}/50 States answered', 'Name a US States:').title()
     state = data[data["state"] == userResponse]
-    answers = data['state']
+    answerList = data['state'].to_list()
+    
 
-    states.goto((int(state.x), int(state.y)))
-    states.write(userResponse)
+    if userResponse == 'Exit':
+        break
+    
+    if userResponse in answerList:
+        if userResponse not in answered:
+            states.goto(state.x.item(), state.y.item())
+            states.write(userResponse)
+            stateCount += 1
+    
+    answered.append(userResponse)
 
-screen.exitonclick()
+    if stateCount == 50:
+        gameIsOn = False
+
+# States to learn
+toLearn = {
+    'state': [n for n in answerList if n not in answered]
+}
+# for i in answerList:
+#     if i in answered:
+#         answerList.pop(answerList.index(i))
+#     else:
+#         extract = data[data["state"] == i]
+#         toLearn["state"].append(extract.state.item())
+        
+newfile = pandas.DataFrame.from_dict(toLearn)
+newfile.to_csv('./Day25/us-states-game/states_to_learn.csv')
